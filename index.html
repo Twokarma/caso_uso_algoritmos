@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RouteFlow La Paz – Planificador de rutas de reparto</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Bricolage+Grotesque:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="estilos/style.css">
+<!-- dentro de <head>, después de style.css -->
+<link rel="stylesheet" href="estilos/ampliacion.css">
+
+<!-- al final, después de js/app.js -->
+<script src="js/ampliacion.js"></script>
+
+
+</head><body>
+<button id="menuBtn" aria-label="Abrir menú">☰</button>
+<aside id="side">
+<div class="logo">RouteFlow</div>
+<nav>
+<a href="#introduccion">Introducción</a>
+<a href="#problema">Problema</a>
+<a href="#objetivos">Objetivos</a>
+<span class="grp">Marco teórico</span>
+<a href="#grafos" class="sub">Grafos</a>
+<a href="#repr" class="sub">Representación</a>
+<a href="#dijkstra" class="sub">Dijkstra</a>
+<a href="#demo" class="sub">Demo paso a paso</a>
+<a href="#refs" class="sub">Referencias</a>
+<a href="#aplicacion">Aplicación</a>
+<a href="#conclusiones">Conclusiones</a>
+</nav>
+</aside>
+<main>
+
+<section id="introduccion">
+<h1>Entregas más rápidas en La Paz</h1>
+<p class="lead">RouteFlow calcula el camino más corto para un repartidor y muestra el recorrido animado sobre el mapa real de la ciudad de La Paz.</p>
+<h2>¿Qué quiero hacer?</h2>
+<p>Quiero resolver un problema real de logística: un repartidor sale de un depósito y debe llegar a distintos puntos de la ciudad (mercados, plazas, zonas residenciales) gastando la menor distancia posible. La ciudad se representa como un grafo: los lugares son nodos y las calles son aristas con una distancia en kilómetros.</p>
+<h2>¿Por qué La Paz?</h2>
+<p>La Paz está en un valle rodeado de montañas, con calles empinadas, zonas de tráfico pesado en el centro y barrios a diferentes alturas. Elegir mal una ruta significa más tiempo, más combustible y entregas tardías. Esto hace que optimizar rutas tenga un impacto concreto.</p>
+<h2>Algoritmo que se maneja</h2>
+<div class="box"><b>Dijkstra:</b> encuentra el camino de menor distancia desde el depósito hasta un destino.</div>
+<p>Puedes ir directo a <a href="#aplicacion">Aplicación</a> o empezar por el <a href="#grafos">Marco teórico</a>.</p>
+</section>
+
+<section id="problema">
+<h1>Definición del problema</h1>
+<p>Una empresa o un repartidor independiente en La Paz necesita llevar pedidos desde un punto de origen a un punto de destino. Existen muchas combinaciones posibles de calles. Si elige a intuición, puede tomar recorridos largos, perder tiempo en zonas congestionadas y aumentar el gasto de combustible.</p>
+<div class="box"><b>Problema a resolver:</b> dado un mapa con puntos de entrega y calles con distancias conocidas, encontrar la ruta de menor distancia entre dos puntos.</div>
+<h2>Datos del problema</h2>
+<ul><li><b>Entrada:</b> lista de puntos con su ubicación (latitud, longitud), calles que los conectan y su distancia, origen y destino.</li>
+<li><b>Salida:</b> la secuencia de puntos a recorrer, la distancia total y el tiempo estimado.</li>
+<li><b>Restricciones:</b> las distancias son positivas; la ciudad es una red conectada; el mapa usa distancias aproximadas.</li></ul>
+<h2>¿Por qué no probar todas las rutas?</h2>
+<p>Con pocos puntos es posible, pero el número de caminos crece muy rápido al agregar calles. Un algoritmo como Dijkstra evita revisar todos los caminos: descarta de entrada los que ya sabe que son peores.</p>
+</section>
+
+<section id="objetivos">
+<h1>Objetivos</h1>
+<h2>Objetivo general</h2>
+<p>Desarrollar una aplicación web que aplique el algoritmo de Dijkstra para calcular y animar rutas óptimas de reparto sobre el mapa de la ciudad de La Paz.</p>
+<h2>Objetivos específicos</h2>
+<ul><li>Modelar la ciudad de La Paz como un grafo ponderado no dirigido.</li>
+<li>Implementar Dijkstra para hallar la ruta de menor distancia.</li>
+<li>Visualizar cada paso del algoritmo sobre un mapa real con animaciones.</li>
+<li>Mostrar al final una tabla con el recorrido, los pasos del algoritmo y el tiempo estimado.</li>
+<li>Permitir agregar nuevos puntos y conectar calles para probar otros casos.</li>
+<li>Explicar la complejidad y las limitaciones del algoritmo.</li></ul>
+</section>
+
+<section id="grafos">
+<h1>1. Grafos</h1>
+<p>Un grafo G = (V, E) está formado por un conjunto de vértices V y un conjunto de aristas E que unen pares de vértices. En RouteFlow, cada vértice es un lugar de La Paz y cada arista es una calle.</p>
+<ul><li><b>No dirigido:</b> la calle se puede recorrer en ambos sentidos. Es el caso del mapa de ejemplo.</li><li><b>Dirigido:</b> cada arista tiene sentido único. Sirve para modelar calles de una sola vía.</li><li><b>Ponderado:</b> cada arista tiene un peso (aquí, kilómetros).</li><li><b>Camino:</b> secuencia de vértices unidos por aristas. Su costo es la suma de los pesos.</li><li><b>Conexo:</b> existe un camino entre cualquier par de vértices.</li><li><b>Ciclo:</b> camino que vuelve al vértice de partida.</li></ul>
+</section>
+
+<section id="repr">
+<h1>2. Representación en memoria</h1>
+<div class="scroll"><table class="cmp"><tr><th></th><th>Matriz de adyacencia</th><th>Lista de adyacencia</th></tr>
+<tr><td>Memoria</td><td>O(V²)</td><td>O(V + E)</td></tr>
+<tr><td>¿Existe la calle u–v?</td><td>O(1)</td><td>O(grado de u)</td></tr>
+<tr><td>Recorrer vecinos de u</td><td>O(V)</td><td>O(grado de u)</td></tr>
+<tr><td>Conviene cuando</td><td>el grafo es denso</td><td>el grafo es disperso (mapas de calles)</td></tr></table></div>
+<p>Un mapa de ciudad es disperso (cada esquina conecta con pocas calles), por eso se usa lista de adyacencia.</p>
+</section>
+
+<section id="dijkstra">
+<h1>3. Algoritmo de Dijkstra</h1>
+<p>Propuesto por Edsger W. Dijkstra en 1959. Calcula la distancia mínima desde un vértice origen a todos los demás en un grafo con pesos no negativos. Es un algoritmo voraz (greedy): en cada paso fija el vértice pendiente con menor distancia conocida y mejora (relaja) la distancia de sus vecinos.</p>
+<h3>Idea clave: relajación</h3>
+<p>Si llegar a u cuesta dist[u] y la calle u–v mide w, entonces llegar a v pasando por u cuesta dist[u] + w. Si ese valor es menor que el que ya se tenía para v, se actualiza.</p>
+<div class="box formula">Dijkstra(grafo, origen):
+  para cada vértice v: dist[v] = ∞ ; anterior[v] = nulo
+  dist[origen] = 0
+  mientras queden vértices sin fijar:
+    u = vértice sin fijar con menor dist[u]
+    fijar u
+    para cada vecino v de u (calle de peso w):
+      si dist[u] + w &lt; dist[v]:
+        dist[v] = dist[u] + w
+        anterior[v] = u
+  reconstruir el camino siguiendo anterior[] desde el destino</div>
+<h3>Complejidad</h3>
+<ul><li>Con búsqueda lineal del mínimo: O(V²).</li><li>Con cola de prioridad (heap binario): O((V + E) log V).</li></ul>
+<h3>¿Por qué no funciona con pesos negativos?</h3>
+<p>Dijkstra asume que al fijar un vértice su distancia ya no se puede mejorar. Con una arista negativa, un camino más largo podría terminar siendo más barato y esa suposición falla. Para ese caso se usa Bellman-Ford. En el reparto las distancias nunca son negativas, así que Dijkstra es adecuado.</p>
+<h3>Algoritmos relacionados</h3>
+<p>A* (Dijkstra con heurística para llegar más rápido al destino), Bellman-Ford (admite pesos negativos) y Floyd-Warshall (distancias entre todos los pares de puntos).</p>
+</section>
+
+<section id="demo">
+<h1>Demo: Dijkstra paso a paso</h1>
+<p>Grafo pequeño de ejemplo con origen A. Observa cómo la tabla de distancias va mejorando.</p>
+<svg id="tg" viewBox="0 0 390 230" role="img" aria-label="Grafo de ejemplo de cinco nodos"></svg>
+<div class="scroll"><table id="tt"></table></div>
+<p id="tdesc"></p>
+<div class="bar"><button id="tNext" class="pri">Siguiente paso</button><button id="tAuto">Reproducir</button><button id="tReset">Reiniciar</button></div>
+</section>
+
+<section id="refs">
+<h1>Referencias</h1>
+<ul><li>Cormen, T., Leiserson, C., Rivest, R. y Stein, C. <i>Introduction to Algorithms</i>. MIT Press.</li>
+<li>Sedgewick, R. y Wayne, K. <i>Algorithms</i>. Addison-Wesley.</li>
+<li>Weiss, M. A. <i>Estructuras de datos y algoritmos</i>. Pearson.</li>
+<li>Skiena, S. <i>The Algorithm Design Manual</i>. Springer.</li>
+<li>Dijkstra, E. W. (1959). A note on two problems in connexion with graphs. <i>Numerische Mathematik</i>, 1, 269–271.</li>
+<li>OpenStreetMap contributors. Mapa base. https://www.openstreetmap.org</li></ul>
+</section>
+
+<section id="aplicacion">
+<h1>Aplicación</h1>
+<p class="lead">Mapa real de La Paz. Los números en cada calle son kilómetros aproximados. Haz clic en dos puntos para elegir origen y destino.</p>
+<div class="bar">
+<label>Origen <select id="from"></select></label>
+<label>Destino <select id="to"></select></label>
+<label>Velocidad <select id="spd"><option value="0.5">Lenta</option><option value="1" selected>Normal</option><option value="2">Rápida</option></select></label>
+</div>
+<div class="bar"><button class="pri" id="bD">Calcular ruta (Dijkstra)</button></div>
+<div class="bar"><span>Editar:</span><button data-mode="view" class="act">Ver</button><button data-mode="add">Agregar punto</button><button data-mode="con">Conectar calle</button><button id="bR">Reiniciar</button></div>
+<p id="rP" class="status"></p>
+<div id="map" aria-label="Mapa de La Paz con puntos de entrega y calles"></div>
+<div class="leg"><span><i style="background:var(--route)"></i>Ruta más corta</span><span><i style="background:var(--visit)"></i>Explorado / mejorado</span></div>
+<div id="out" class="box" hidden>
+<h2 style="margin-top:0">Resultados</h2>
+<div class="res">
+<div><b id="rD">–</b><span>distancia total</span></div>
+<div><b id="rT">–</b><span>tiempo a 20 km/h (tráfico urbano)</span></div>
+<div><b id="rN">–</b><span>paradas</span></div>
+<div><b id="rC">–</b><span>tiempo de cálculo de Dijkstra</span></div>
+</div>
+<h3>Recorrido paso a paso</h3>
+<div class="scroll"><table class="cmp" id="tRuta"></table></div>
+<h3>Cómo decidió Dijkstra</h3>
+<div class="scroll"><table class="cmp" id="tPasos"></table></div>
+</div>
+<p class="note">Las calles se dibujan como líneas rectas entre puntos y su peso es la distancia recta por 1,35 para aproximar el recorrido real.</p>
+</section>
+
+<section id="conclusiones">
+<h1>Conclusiones</h1>
+<ul><li>Modelar La Paz como un grafo permite resolver con un algoritmo clásico un problema real de reparto.</li>
+<li>Dijkstra siempre encuentra la ruta más corta porque todas las distancias son positivas, y trabaja bien en grafos dispersos como un mapa de calles.</li>
+<li>La animación y las tablas ayudan a ver por qué el algoritmo toma cada decisión.</li>
+<li>Elegir la estructura de datos correcta (lista de adyacencia, cola de prioridad) es tan importante como el algoritmo.</li></ul>
+<h2>Limitaciones</h2>
+<p>Las calles son líneas rectas con distancia aproximada, no se consideran pendientes, calles de un solo sentido ni tráfico en tiempo real. Las coordenadas de los lugares son aproximadas.</p>
+<h2>Trabajo futuro</h2>
+<ul><li>Usar el trazado real de las calles de OpenStreetMap.</li><li>Usar A* para acelerar la búsqueda.</li><li>Resolver varias entregas seguidas (problema del viajante).</li><li>Incluir el desnivel y el tráfico como parte del peso.</li></ul>
+</section>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/data.js"></script>
+<script src="js/algorithms.js"></script>
+<script src="js/theory.js"></script>
+<script src="js/app.js"></script>
+</body></html>
