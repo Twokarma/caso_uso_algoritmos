@@ -16,43 +16,254 @@
 <button id="menuBtn" aria-label="Abrir menú">☰</button>
 <aside id="side">
 <div class="logo">RouteFlow</div>
+
 <nav>
-<a href="#introduccion">Introducción</a>
-<a href="#problema">Problema</a>
-<a href="#objetivos">Objetivos</a>
-<span class="grp">Marco teórico</span>
-<a href="#grafos" class="sub">Grafos</a>
-<a href="#repr" class="sub">Representación</a>
-<a href="#dijkstra" class="sub">Dijkstra</a>
-<a href="#demo" class="sub">Demo paso a paso</a>
-<a href="#refs" class="sub">Referencias</a>
-<a href="#aplicacion">Aplicación</a>
-<a href="#conclusiones">Conclusiones</a>
+  <a href="#introduccion">Introducción</a>
+  <a href="#problema">Problema</a>
+  <a href="#objetivos">Objetivos</a>
+
+  <span class="grp">Marco teórico</span>
+  <a href="#grafos" class="sub">Teoría de grafos</a>
+  <a href="#repr" class="sub">Representación en memoria</a>
+  <a href="#dijkstra" class="sub">Algoritmo Dijkstra</a>
+  <a href="#mapas" class="sub">Mapas y geografía</a>
+  <a href="#demo" class="sub">Demo paso a paso</a>
+  <a href="#refs" class="sub">Referencias bibliográficas</a>
+
+  <span class="grp">Proyecto</span>
+  <a href="#aplicacion">Aplicación interactiva</a>
+  <a href="#conclusiones">Conclusiones</a>
 </nav>
+
+
+
 </aside>
 <main>
 
+
 <section id="introduccion">
-<h1>Entregas más rápidas en La Paz</h1>
-<p class="lead">RouteFlow calcula el camino más corto para un repartidor y muestra el recorrido animado sobre el mapa real de la ciudad de La Paz.</p>
-<h2>¿Qué quiero hacer?</h2>
-<p>Quiero resolver un problema real de logística: un repartidor sale de un depósito y debe llegar a distintos puntos de la ciudad (mercados, plazas, zonas residenciales) gastando la menor distancia posible. La ciudad se representa como un grafo: los lugares son nodos y las calles son aristas con una distancia en kilómetros.</p>
-<h2>¿Por qué La Paz?</h2>
-<p>La Paz está en un valle rodeado de montañas, con calles empinadas, zonas de tráfico pesado en el centro y barrios a diferentes alturas. Elegir mal una ruta significa más tiempo, más combustible y entregas tardías. Esto hace que optimizar rutas tenga un impacto concreto.</p>
-<h2>Algoritmo que se maneja</h2>
-<div class="box"><b>Dijkstra:</b> encuentra el camino de menor distancia desde el depósito hasta un destino.</div>
-<p>Puedes ir directo a <a href="#aplicacion">Aplicación</a> o empezar por el <a href="#grafos">Marco teórico</a>.</p>
+  <h1>Entregas más rápidas en La Paz</h1>
+
+  <p class="lead">
+    RouteFlow es una aplicación web que permite planificar rutas de reparto
+    utilizando algoritmos de teoría de grafos. Mediante el algoritmo de
+    Dijkstra, busca el camino de menor distancia entre un punto de origen
+    y un destino, representando el recorrido sobre un mapa de la ciudad
+    de La Paz.
+  </p>
+
+  <h2>¿Qué quiero hacer?</h2>
+  <p>
+    El objetivo de este proyecto es desarrollar una herramienta interactiva
+    que permita comprender cómo los algoritmos de grafos pueden solucionar
+    problemas cotidianos relacionados con la movilidad, el transporte y la
+    distribución de productos.
+  </p>
+
+  <p>
+    La aplicación representa una red de calles mediante un grafo ponderado.
+    Cada punto representa una ubicación geográfica, como un depósito,
+    una plaza, un mercado o una zona de entrega. Las conexiones entre
+    puntos representan calles o segmentos de recorrido, mientras que
+    sus pesos indican la distancia aproximada que existe entre ellos.
+  </p>
+
+  <p>
+    El usuario puede seleccionar un origen y un destino, observar cómo
+    el algoritmo analiza las conexiones disponibles y visualizar la ruta
+    encontrada mediante una animación sobre el mapa.
+  </p>
+
+  <h2>Contexto: logística y distribución urbana</h2>
+  <p>
+    La logística urbana comprende las actividades relacionadas con el
+    transporte, almacenamiento, distribución y entrega de productos
+    dentro de una ciudad. Su correcta planificación permite reducir
+    costos operativos, mejorar los tiempos de entrega y utilizar
+    eficientemente los recursos disponibles.
+  </p>
+
+  <p>
+    En los sistemas de reparto, la selección de rutas es una decisión
+    importante. Un recorrido más largo puede provocar mayor consumo de
+    combustible, desgaste del vehículo, retrasos y menor cantidad de
+    entregas durante una jornada laboral.
+  </p>
+
+  <div class="box">
+    <b>Aplicación en la vida real:</b>
+    Un repartidor que necesita trasladar un pedido desde un depósito
+    hasta una tienda puede tener diferentes alternativas de calles.
+    RouteFlow permite comparar esas alternativas y seleccionar el
+    recorrido de menor distancia según los datos del grafo.
+  </div>
+
+  <h2>¿Por qué La Paz?</h2>
+  <p>
+    La ciudad de La Paz presenta características geográficas y urbanas
+    que hacen interesante el estudio de la optimización de rutas.
+    Su topografía irregular, las diferencias de altura, las calles
+    estrechas, las zonas comerciales y la congestión vehicular pueden
+    influir en los recorridos de transporte y distribución.
+  </p>
+
+  <p>
+    Estas características permiten plantear un problema de optimización
+    donde se busca seleccionar un recorrido eficiente entre diferentes
+    ubicaciones urbanas.
+  </p>
+
+  <h2>¿Qué es la optimización de rutas?</h2>
+  <p>
+    La optimización de rutas es el proceso de encontrar un recorrido
+    que minimice o maximice una determinada función de costo,
+    respetando las restricciones establecidas.
+  </p>
+
+  <p>
+    En este proyecto, la función de costo corresponde a la distancia
+    total recorrida. Por lo tanto, el objetivo es minimizar la suma
+    de las distancias de todas las calles utilizadas.
+  </p>
+
+  <div class="box formula">
+    Distancia total = suma de los pesos de las calles recorridas
+  </div>
+
+  <h2>Algoritmo utilizado</h2>
+  <p>
+    El algoritmo principal utilizado es Dijkstra, un algoritmo de
+    búsqueda de caminos mínimos que permite encontrar la distancia
+    mínima desde un nodo inicial hasta otros nodos de un grafo,
+    siempre que sus pesos sean no negativos.
+  </p>
+
+  <p>
+    RouteFlow utiliza este algoritmo para analizar progresivamente
+    las alternativas disponibles, actualizar las distancias conocidas
+    y reconstruir la ruta óptima al finalizar el proceso.
+  </p>
+
+  <div class="box">
+    <b>¿Qué se busca demostrar?</b>
+    La aplicación demuestra cómo un algoritmo estudiado en teoría
+    puede transformarse en una solución funcional, visual e interactiva
+    para un problema de transporte y distribución urbana.
+  </div>
+
+  <h2>Beneficios de la solución</h2>
+  <ul>
+    <li>Reduce la distancia estimada de recorrido.</li>
+    <li>Permite tomar decisiones basadas en datos.</li>
+    <li>Facilita la comprensión de algoritmos de grafos.</li>
+    <li>Visualiza el proceso de búsqueda paso a paso.</li>
+    <li>Permite experimentar con diferentes orígenes y destinos.</li>
+    <li>Ofrece una base para futuras aplicaciones logísticas.</li>
+  </ul>
 </section>
+
 
 <section id="problema">
 <h1>Definición del problema</h1>
 <p>Una empresa o un repartidor independiente en La Paz necesita llevar pedidos desde un punto de origen a un punto de destino. Existen muchas combinaciones posibles de calles. Si elige a intuición, puede tomar recorridos largos, perder tiempo en zonas congestionadas y aumentar el gasto de combustible.</p>
 <div class="box"><b>Problema a resolver:</b> dado un mapa con puntos de entrega y calles con distancias conocidas, encontrar la ruta de menor distancia entre dos puntos.</div>
-<h2>Datos del problema</h2>
-<ul><li><b>Entrada:</b> lista de puntos con su ubicación (latitud, longitud), calles que los conectan y su distancia, origen y destino.</li>
-<li><b>Salida:</b> la secuencia de puntos a recorrer, la distancia total y el tiempo estimado.</li>
-<li><b>Restricciones:</b> las distancias son positivas; la ciudad es una red conectada; el mapa usa distancias aproximadas.</li></ul>
-<h2>¿Por qué no probar todas las rutas?</h2>
+
+<h2>Formulación matemática del problema</h2>
+
+<p>
+  El problema de búsqueda de rutas puede formularse como un problema
+  de optimización sobre un grafo ponderado. Sea G = (V, E), donde
+  V representa el conjunto de ubicaciones y E representa las
+  conexiones existentes entre ellas.
+</p>
+
+<p>
+  Cada conexión entre dos vértices tiene asociado un peso w(u,v),
+  que representa la distancia estimada entre las ubicaciones u y v.
+</p>
+
+<p>
+  Se desea encontrar un camino P entre el origen s y el destino t
+  que minimice la suma de los pesos de sus aristas.
+</p>
+
+<div class="box formula">
+  Minimizar:
+
+  d(s,t) = Σ w(u,v)
+
+  para todas las aristas pertenecientes al camino P
+</div>
+
+<h2>Elementos del problema</h2>
+
+<div class="scroll">
+<table class="cmp">
+  <tr>
+    <th>Elemento</th>
+    <th>Descripción</th>
+    <th>Ejemplo en RouteFlow</th>
+  </tr>
+  <tr>
+    <td>Vértice</td>
+    <td>Representa una ubicación.</td>
+    <td>Plaza, depósito o mercado.</td>
+  </tr>
+  <tr>
+    <td>Arista</td>
+    <td>Representa una conexión entre ubicaciones.</td>
+    <td>Calle entre dos puntos.</td>
+  </tr>
+  <tr>
+    <td>Peso</td>
+    <td>Valor asociado a una conexión.</td>
+    <td>Distancia en kilómetros.</td>
+  </tr>
+  <tr>
+    <td>Origen</td>
+    <td>Ubicación donde comienza el recorrido.</td>
+    <td>Centro de distribución.</td>
+  </tr>
+  <tr>
+    <td>Destino</td>
+    <td>Ubicación a la que se desea llegar.</td>
+    <td>Cliente o punto de entrega.</td>
+  </tr>
+  <tr>
+    <td>Camino</td>
+    <td>Secuencia de conexiones entre vértices.</td>
+    <td>Recorrido del repartidor.</td>
+  </tr>
+  <tr>
+    <td>Camino óptimo</td>
+    <td>Camino con el menor costo total.</td>
+    <td>Ruta de menor distancia.</td>
+  </tr>
+</table>
+</div>
+
+<h2>Restricciones y supuestos</h2>
+
+<ul>
+  <li>Todos los pesos del grafo son mayores o iguales a cero.</li>
+  <li>Las conexiones representan calles transitables.</li>
+  <li>El modelo de ejemplo considera calles bidireccionales.</li>
+  <li>Las distancias son estimaciones y no distancias oficiales de circulación.</li>
+  <li>El algoritmo optimiza distancia, no necesariamente tiempo.</li>
+  <li>Se supone que existe conectividad entre el origen y el destino.</li>
+  <li>El tráfico real y las restricciones temporales no se consideran en el cálculo básico.</li>
+</ul>
+
+<h2>Importancia de resolver el problema</h2>
+
+<p>
+  Encontrar una ruta eficiente permite disminuir la distancia
+  recorrida y mejorar la planificación de las entregas. Desde el
+  punto de vista computacional, este problema permite aplicar
+  estructuras de datos, representación de grafos, algoritmos voraces
+  y análisis de complejidad.
+</p>
+
 <p>Con pocos puntos es posible, pero el número de caminos crece muy rápido al agregar calles. Un algoritmo como Dijkstra evita revisar todos los caminos: descarta de entrada los que ya sabe que son peores.</p>
 </section>
 
@@ -69,11 +280,182 @@
 <li>Explicar la complejidad y las limitaciones del algoritmo.</li></ul>
 </section>
 
+
 <section id="grafos">
-<h1>1. Grafos</h1>
-<p>Un grafo G = (V, E) está formado por un conjunto de vértices V y un conjunto de aristas E que unen pares de vértices. En RouteFlow, cada vértice es un lugar de La Paz y cada arista es una calle.</p>
-<ul><li><b>No dirigido:</b> la calle se puede recorrer en ambos sentidos. Es el caso del mapa de ejemplo.</li><li><b>Dirigido:</b> cada arista tiene sentido único. Sirve para modelar calles de una sola vía.</li><li><b>Ponderado:</b> cada arista tiene un peso (aquí, kilómetros).</li><li><b>Camino:</b> secuencia de vértices unidos por aristas. Su costo es la suma de los pesos.</li><li><b>Conexo:</b> existe un camino entre cualquier par de vértices.</li><li><b>Ciclo:</b> camino que vuelve al vértice de partida.</li></ul>
+  <h1>1. Teoría de grafos</h1>
+
+  <p>
+    La teoría de grafos es una rama de las matemáticas discretas
+    que estudia las relaciones entre objetos. Permite representar
+    sistemas complejos mediante estructuras formadas por vértices
+    y aristas.
+  </p>
+
+  <p>
+    Los grafos se utilizan en diferentes áreas como redes de
+    comunicación, transporte, redes sociales, circuitos eléctricos,
+    planificación de actividades, inteligencia artificial y sistemas
+    de navegación.
+  </p>
+
+  <h2>Definición formal</h2>
+
+  <p>
+    Un grafo se representa mediante G = (V, E), donde:
+  </p>
+
+  <ul>
+    <li><b>V (Vertices):</b> conjunto de vértices o nodos.</li>
+    <li><b>E (Edges):</b> conjunto de aristas que conectan los vértices.</li>
+  </ul>
+
+  <div class="box formula">
+    G = (V, E)
+
+    V = {A, B, C, D, E}
+
+    E = {(A,B), (A,C), (B,D), (C,D), (D,E)}
+  </div>
+
+  <p>
+    En RouteFlow, los vértices representan ubicaciones geográficas
+    de la ciudad y las aristas representan las calles que conectan
+    esas ubicaciones.
+  </p>
+
+  <h2>Tipos de grafos</h2>
+
+  <h3>Grafo no dirigido</h3>
+  <p>
+    En un grafo no dirigido, las conexiones pueden recorrerse en
+    ambos sentidos. Si existe una arista entre A y B, se puede
+    viajar de A hacia B y de B hacia A.
+  </p>
+
+  <p>
+    Este modelo puede utilizarse para representar calles que
+    permiten circulación en ambos sentidos.
+  </p>
+
+  <h3>Grafo dirigido</h3>
+  <p>
+    Un grafo dirigido tiene conexiones que poseen una orientación.
+    Una arista de A hacia B no implica necesariamente que exista
+    una conexión de B hacia A.
+  </p>
+
+  <p>
+    Este tipo de grafo permite representar calles de un solo sentido,
+    restricciones de circulación y rutas con direcciones específicas.
+  </p>
+
+  <h3>Grafo ponderado</h3>
+  <p>
+    Un grafo ponderado asigna un valor numérico a cada arista.
+    Este valor puede representar distancia, costo, tiempo,
+    consumo de combustible, riesgo o cualquier otra medida.
+  </p>
+
+  <p>
+    RouteFlow utiliza un grafo ponderado donde los pesos
+    representan distancias aproximadas en kilómetros.
+  </p>
+
+  <h3>Grafo conectado</h3>
+  <p>
+    Un grafo es conectado cuando existe al menos un camino entre
+    cada par de vértices. En el modelo de la aplicación se busca
+    que las ubicaciones tengan conexiones suficientes para permitir
+    el recorrido entre los puntos seleccionados.
+  </p>
+
+  <h3>Grafo desconectado</h3>
+  <p>
+    Un grafo desconectado contiene grupos de vértices entre los
+    cuales no existe ningún camino. Si el origen y el destino
+    pertenecen a componentes diferentes, no es posible encontrar
+    una ruta.
+  </p>
+
+  <h2>Conceptos fundamentales</h2>
+
+  <div class="scroll">
+    <table class="cmp">
+      <tr>
+        <th>Concepto</th>
+        <th>Definición</th>
+        <th>Aplicación</th>
+      </tr>
+      <tr>
+        <td>Grado</td>
+        <td>Número de aristas incidentes a un vértice.</td>
+        <td>Conexiones de una ubicación.</td>
+      </tr>
+      <tr>
+        <td>Adyacencia</td>
+        <td>Relación entre vértices conectados directamente.</td>
+        <td>Ubicaciones unidas por una calle.</td>
+      </tr>
+      <tr>
+        <td>Camino</td>
+        <td>Secuencia de vértices conectados.</td>
+        <td>Recorrido de reparto.</td>
+      </tr>
+      <tr>
+        <td>Ciclo</td>
+        <td>Camino que termina en su vértice inicial.</td>
+        <td>Recorrido circular.</td>
+      </tr>
+      <tr>
+        <td>Subgrafo</td>
+        <td>Parte de un grafo original.</td>
+        <td>Una zona específica de la ciudad.</td>
+      </tr>
+      <tr>
+        <td>Componente conexa</td>
+        <td>Conjunto de vértices conectados entre sí.</td>
+        <td>Zona de calles accesibles.</td>
+      </tr>
+      <tr>
+        <td>Ruta</td>
+        <td>Camino seleccionado para llegar a un destino.</td>
+        <td>Ruta calculada por Dijkstra.</td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>¿Por qué utilizar grafos en transporte?</h2>
+
+  <p>
+    Las redes de transporte están compuestas por ubicaciones y
+    conexiones. Debido a esta estructura natural, los grafos permiten
+    representar el sistema de manera simplificada y aplicar algoritmos
+    que analizan las posibles rutas.
+  </p>
+
+  <ul>
+    <li>Representar intersecciones como nodos.</li>
+    <li>Representar calles como aristas.</li>
+    <li>Asignar distancias o costos a las conexiones.</li>
+    <li>Encontrar caminos entre diferentes ubicaciones.</li>
+    <li>Analizar conectividad y accesibilidad.</li>
+    <li>Optimizar recorridos.</li>
+  </ul>
+
+  <h2>Ejemplo de aplicación</h2>
+
+  <p>
+    Supongamos que un repartidor se encuentra en el nodo A y necesita
+    llegar al nodo E. Existen diferentes caminos, pero cada uno tiene
+    una distancia total diferente.
+  </p>
+
+  <p>
+    El problema consiste en determinar cuál de esos caminos tiene la
+    menor suma de pesos. Para resolverlo, RouteFlow utiliza Dijkstra.
+  </p>
 </section>
+s
 
 <section id="repr">
 <h1>2. Representación en memoria</h1>
@@ -83,11 +465,784 @@
 <tr><td>Recorrer vecinos de u</td><td>O(V)</td><td>O(grado de u)</td></tr>
 <tr><td>Conviene cuando</td><td>el grafo es denso</td><td>el grafo es disperso (mapas de calles)</td></tr></table></div>
 <p>Un mapa de ciudad es disperso (cada esquina conecta con pocas calles), por eso se usa lista de adyacencia.</p>
+
+<h2>Representación computacional de un grafo</h2>
+
+<p>
+  Para que un algoritmo pueda trabajar con un grafo, es necesario
+  representar sus vértices y conexiones mediante estructuras de datos
+  que permitan acceder a la información de forma eficiente.
+</p>
+
+<p>
+  Las representaciones más comunes son la matriz de adyacencia
+  y la lista de adyacencia.
+</p>
+
+<h3>Matriz de adyacencia</h3>
+
+<p>
+  Consiste en una matriz de tamaño V × V, donde V es el número
+  de vértices. Cada celda indica si existe una conexión entre dos
+  vértices y, en un grafo ponderado, puede almacenar el peso de
+  esa conexión.
+</p>
+
+<p>
+  Cuando no existe una conexión, se puede representar mediante
+  infinito o un valor especial.
+</p>
+
+<div class="box formula">
+  Matriz[i][j] = peso de la conexión entre i y j
+
+  Matriz[i][j] = ∞ cuando no existe conexión
+</div>
+
+<h3>Lista de adyacencia</h3>
+
+<p>
+  Consiste en almacenar para cada vértice una colección de sus
+  vecinos. En grafos ponderados, cada vecino se almacena junto
+  con el peso de la arista correspondiente.
+</p>
+
+<p>
+  Esta representación evita almacenar conexiones inexistentes
+  y resulta especialmente útil en grafos dispersos.
+</p>
+
+<h3>Ejemplo de representación</h3>
+
+<p>
+  Considerando las siguientes conexiones:
+</p>
+
+<ul>
+  <li>A – B: 4 km</li>
+  <li>A – C: 2 km</li>
+  <li>B – D: 5 km</li>
+  <li>C – D: 3 km</li>
+</ul>
+
+<div class="box formula">
+  Lista de adyacencia:
+
+  A → B(4), C(2)
+
+  B → A(4), D(5)
+
+  C → A(2), D(3)
+
+  D → B(5), C(3)
+</div>
+
+<h3>Comparación de representaciones</h3>
+
+<div class="scroll">
+<table class="cmp">
+  <tr>
+    <th>Característica</th>
+    <th>Matriz</th>
+    <th>Lista</th>
+  </tr>
+  <tr>
+    <td>Memoria</td>
+    <td>O(V²)</td>
+    <td>O(V + E)</td>
+  </tr>
+  <tr>
+    <td>Consultar conexión</td>
+    <td>O(1)</td>
+    <td>O(grado del nodo)</td>
+  </tr>
+  <tr>
+    <td>Recorrer vecinos</td>
+    <td>O(V)</td>
+    <td>O(grado del nodo)</td>
+  </tr>
+  <tr>
+    <td>Grafo denso</td>
+    <td>Conveniente</td>
+    <td>Puede requerir más recorridos</td>
+  </tr>
+  <tr>
+    <td>Grafo disperso</td>
+    <td>Consume memoria innecesaria</td>
+    <td>Más eficiente</td>
+  </tr>
+</table>
+</div>
+
+<h2>¿Por qué RouteFlow utiliza listas de adyacencia?</h2>
+
+<p>
+  Las redes de calles generalmente tienen pocas conexiones por
+  ubicación en comparación con la cantidad total de ubicaciones
+  existentes. Es decir, una intersección normalmente se conecta
+  únicamente con algunas calles cercanas y no con todos los puntos
+  de la ciudad.
+</p>
+
+<p>
+  Por esta razón, un grafo de calles suele ser disperso. La lista
+  de adyacencia permite almacenar únicamente las conexiones existentes,
+  reduciendo el consumo de memoria y facilitando el recorrido de los
+  vecinos durante la ejecución de Dijkstra.
+</p>
+
+<div class="box">
+  <b>Decisión de diseño:</b>
+  RouteFlow utiliza listas de adyacencia porque permiten representar
+  redes de calles de manera eficiente y facilitan el acceso a las
+  conexiones necesarias para el algoritmo.
+</div>
+
+</section>
+
+<section id="mapas">
+  <h1>4. Sistemas de información geográfica y mapas</h1>
+
+  <h2>¿Qué es un mapa digital?</h2>
+
+  <p>
+    Un mapa digital es una representación gráfica de información
+    geográfica que permite visualizar ubicaciones, calles, límites,
+    puntos de interés y diferentes elementos espaciales.
+  </p>
+
+  <p>
+    A diferencia de un mapa impreso, un mapa digital puede incorporar
+    interactividad, zoom, desplazamiento, marcadores, capas,
+    información adicional y herramientas de análisis.
+  </p>
+
+  <h2>Coordenadas geográficas</h2>
+
+  <p>
+    Las ubicaciones geográficas pueden representarse mediante
+    coordenadas de latitud y longitud. Estas coordenadas permiten
+    identificar la posición aproximada de un punto sobre la superficie
+    terrestre.
+  </p>
+
+  <div class="scroll">
+    <table class="cmp">
+      <tr>
+        <th>Coordenada</th>
+        <th>Descripción</th>
+      </tr>
+      <tr>
+        <td>Latitud</td>
+        <td>Indica la posición norte o sur respecto al Ecuador.</td>
+      </tr>
+      <tr>
+        <td>Longitud</td>
+        <td>Indica la posición este u oeste respecto al meridiano de Greenwich.</td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>OpenStreetMap</h2>
+
+  <p>
+    OpenStreetMap es un proyecto colaborativo que permite crear y
+    mantener información geográfica de forma abierta. Sus datos
+    incluyen calles, caminos, edificios, lugares de interés y
+    diferentes elementos de infraestructura.
+  </p>
+
+  <p>
+    RouteFlow utiliza un mapa basado en OpenStreetMap como referencia
+    visual para ubicar los puntos de entrega y mostrar el recorrido
+    calculado.
+  </p>
+
+  <h2>Leaflet</h2>
+
+  <p>
+    Leaflet es una biblioteca JavaScript de código abierto utilizada
+    para desarrollar mapas interactivos en páginas web. Permite
+    mostrar mapas, agregar marcadores, dibujar líneas, crear capas,
+    gestionar eventos y controlar la navegación del mapa.
+  </p>
+
+  <p>
+    En RouteFlow, Leaflet permite representar las ubicaciones del
+    grafo sobre el mapa real, mostrar las conexiones entre ellas
+    y destacar la ruta encontrada por Dijkstra.
+  </p>
+
+  <h2>Distancia geográfica y distancia de recorrido</h2>
+
+  <p>
+    La distancia geográfica entre dos puntos puede calcularse a partir
+    de sus coordenadas. Sin embargo, la distancia en línea recta no
+    necesariamente coincide con la distancia que un vehículo debe
+    recorrer por las calles.
+  </p>
+
+  <p>
+    Para aproximar la distancia real de circulación, el proyecto
+    utiliza una estimación que incrementa la distancia recta mediante
+    un factor de corrección.
+  </p>
+
+  <div class="box formula">
+    Distancia estimada = distancia recta × factor de corrección
+  </div>
+
+  <p>
+    El factor de corrección utilizado en el modelo de ejemplo es 1.35.
+    Esto significa que la distancia estimada de recorrido es mayor
+    que la distancia directa entre los puntos, intentando aproximar
+    las desviaciones que normalmente existen debido al trazado de
+    las calles.
+  </p>
+
+  <h2>Limitaciones del modelo geográfico</h2>
+
+  <ul>
+    <li>Las conexiones se dibujan como líneas rectas.</li>
+    <li>No se utiliza el trazado real de cada calle.</li>
+    <li>El factor de corrección es una estimación general.</li>
+    <li>No se consideran calles de un solo sentido.</li>
+    <li>No se considera el estado de las vías.</li>
+    <li>No se utiliza información de tráfico en tiempo real.</li>
+  </ul>
+
+  <div class="box">
+    <b>Importante:</b>
+    El mapa funciona como una visualización geográfica del grafo.
+    El algoritmo calcula la ruta utilizando las conexiones y pesos
+    almacenados en los datos de la aplicación, no mediante el
+    trazado oficial de calles de OpenStreetMap.
+  </div>
 </section>
 
 <section id="dijkstra">
 <h1>3. Algoritmo de Dijkstra</h1>
+
+<h2>¿Qué observar durante la demostración?</h2>
+
+<p>
+  La demostración permite observar el comportamiento del algoritmo
+  de Dijkstra a través de un grafo pequeño. Cada vez que se avanza,
+  se selecciona el nodo con menor distancia tentativa y se analizan
+  sus conexiones.
+</p>
+
+<div class="scroll">
+<table class="cmp">
+  <tr>
+    <th>Elemento visual</th>
+    <th>Significado</th>
+  </tr>
+  <tr>
+    <td>Nodo de origen</td>
+    <td>Ubicación desde donde inicia el cálculo.</td>
+  </tr>
+  <tr>
+    <td>Nodo seleccionado</td>
+    <td>Vértice con menor distancia pendiente.</td>
+  </tr>
+  <tr>
+    <td>Nodos explorados</td>
+    <td>Vértices cuyas conexiones ya fueron analizadas.</td>
+  </tr>
+  <tr>
+    <td>Aristas resaltadas</td>
+    <td>Conexiones que se están evaluando.</td>
+  </tr>
+  <tr>
+    <td>Distancias</td>
+    <td>Costos acumulados desde el origen.</td>
+  </tr>
+  <tr>
+    <td>Predecesores</td>
+    <td>Vértices que permiten reconstruir la ruta.</td>
+  </tr>
+</table>
+</div>
+
+<h2>¿Qué demuestra esta simulación?</h2>
+
+<ul>
+  <li>La inicialización de las distancias.</li>
+  <li>La selección del menor nodo pendiente.</li>
+  <li>La exploración de los vecinos.</li>
+  <li>La actualización de distancias mediante relajación.</li>
+  <li>La selección progresiva de nodos.</li>
+  <li>La obtención de una ruta de costo mínimo.</li>
+</ul>
+
+<div class="box">
+  <b>Objetivo educativo:</b>
+  El usuario no solamente observa la ruta final, sino que comprende
+  cómo se obtiene, qué decisiones toma el algoritmo y por qué
+  algunos caminos son descartados.
+</div>
+
 <p>Propuesto por Edsger W. Dijkstra en 1959. Calcula la distancia mínima desde un vértice origen a todos los demás en un grafo con pesos no negativos. Es un algoritmo voraz (greedy): en cada paso fija el vértice pendiente con menor distancia conocida y mejora (relaja) la distancia de sus vecinos.</p>
+
+<h2>Origen e importancia del algoritmo</h2>
+
+<p>
+  El algoritmo de Dijkstra fue desarrollado por el científico
+  computacional Edsger W. Dijkstra y publicado en 1959.
+  Su propósito es resolver el problema del camino mínimo
+  desde un vértice inicial hacia los demás vértices de un grafo,
+  utilizando pesos no negativos.
+</p>
+
+<p>
+  Es uno de los algoritmos fundamentales de la teoría de grafos
+  y se utiliza en sistemas de navegación, redes informáticas,
+  planificación, transporte y otras aplicaciones que requieren
+  encontrar recorridos eficientes.
+</p>
+
+<h2>¿Qué es un algoritmo voraz (Greedy)?</h2>
+
+<p>
+  Un algoritmo voraz es una estrategia de resolución de problemas
+  que toma, en cada etapa, una decisión que parece ser la mejor
+  disponible en ese momento, esperando que estas decisiones permitan
+  obtener una solución óptima al problema completo.
+</p>
+
+<p>
+  Dijkstra utiliza esta estrategia seleccionando el vértice pendiente
+  con la menor distancia conocida desde el origen. Una vez seleccionado,
+  lo considera definitivo y analiza las conexiones que salen de él.
+</p>
+
+<div class="box">
+  <b>Decisión voraz de Dijkstra:</b>
+  seleccionar el vértice no visitado que tenga la distancia
+  acumulada más pequeña desde el origen.
+</div>
+
+<h2>Conceptos utilizados durante la ejecución</h2>
+
+<h3>Distancia tentativa</h3>
+<p>
+  Es la mejor distancia conocida hasta un vértice en un determinado
+  momento del algoritmo. Inicialmente, la mayoría de los vértices
+  tienen una distancia infinita, ya que todavía no se conoce un camino
+  desde el origen.
+</p>
+
+<h3>Vértice visitado</h3>
+<p>
+  Es un vértice que ya fue seleccionado como el de menor distancia
+  tentativa y cuya distancia mínima se considera definitiva.
+</p>
+
+<h3>Relajación de aristas</h3>
+<p>
+  Es el procedimiento mediante el cual se comprueba si llegar a un
+  vértice utilizando una conexión desde otro vértice permite obtener
+  una distancia menor que la previamente conocida.
+</p>
+
+<div class="box formula">
+  Nueva distancia = dist[u] + peso(u,v)
+
+  Si nueva distancia &lt; dist[v]:
+
+  dist[v] = nueva distancia
+
+  anterior[v] = u
+</div>
+
+<h3>Predecesor</h3>
+<p>
+  El predecesor es el vértice desde el cual se obtuvo la mejor
+  distancia conocida hacia otro vértice. Al guardar esta información,
+  es posible reconstruir el camino desde el destino hasta el origen
+  una vez finalizado el algoritmo.
+</p>
+
+<h2>Inicialización del algoritmo</h2>
+
+<p>
+  Antes de comenzar, se asigna a cada vértice una distancia inicial.
+  El origen recibe distancia cero, porque no necesita recorrer ninguna
+  calle para llegar a sí mismo. Los demás vértices reciben infinito,
+  indicando que todavía no se conoce una ruta.
+</p>
+
+<div class="scroll">
+<table class="cmp">
+  <tr>
+    <th>Variable</th>
+    <th>Valor inicial</th>
+    <th>Significado</th>
+  </tr>
+  <tr>
+    <td>dist[origen]</td>
+    <td>0</td>
+    <td>Distancia desde el origen hacia sí mismo.</td>
+  </tr>
+  <tr>
+    <td>dist[otros]</td>
+    <td>∞</td>
+    <td>Distancia todavía desconocida.</td>
+  </tr>
+  <tr>
+    <td>anterior[v]</td>
+    <td>null</td>
+    <td>No se conoce el predecesor.</td>
+  </tr>
+  <tr>
+    <td>visitado[v]</td>
+    <td>false</td>
+    <td>El nodo todavía no fue procesado.</td>
+  </tr>
+</table>
+</div>
+
+<h2>Funcionamiento paso a paso</h2>
+
+<ol>
+  <li>
+    <b>Inicializar:</b> asignar cero al origen e infinito a los
+    demás vértices.
+  </li>
+  <li>
+    <b>Seleccionar:</b> buscar el vértice no visitado con la menor
+    distancia tentativa.
+  </li>
+  <li>
+    <b>Visitar:</b> marcar el vértice seleccionado como procesado.
+  </li>
+  <li>
+    <b>Explorar:</b> analizar todos sus vecinos.
+  </li>
+  <li>
+    <b>Relajar:</b> calcular si llegar a cada vecino desde el nodo
+    actual permite mejorar la distancia.
+  </li>
+  <li>
+    <b>Actualizar:</b> si se encuentra una distancia menor, guardar
+    la nueva distancia y el predecesor.
+  </li>
+  <li>
+    <b>Repetir:</b> continuar hasta procesar los vértices necesarios
+    o hasta que no existan más vértices alcanzables.
+  </li>
+  <li>
+    <b>Reconstruir:</b> recuperar el recorrido utilizando los
+    predecesores desde el destino hasta el origen.
+  </li>
+</ol>
+
+<h2>Ejemplo práctico de Dijkstra</h2>
+
+<p>
+  Consideremos un grafo con cinco ubicaciones. El repartidor parte
+  de A y desea llegar a E. Cada conexión representa una calle y
+  contiene una distancia en kilómetros.
+</p>
+
+<div class="box formula">
+  Conexiones:
+
+  A – B = 4 km
+
+  A – C = 2 km
+
+  B – C = 1 km
+
+  B – D = 5 km
+
+  C – D = 8 km
+
+  C – E = 10 km
+
+  D – E = 2 km
+</div>
+
+<h3>Estado inicial</h3>
+
+<div class="scroll">
+<table class="cmp">
+  <tr>
+    <th>Vértice</th>
+    <th>Distancia</th>
+    <th>Predecesor</th>
+  </tr>
+  <tr><td>A</td><td>0</td><td>—</td></tr>
+  <tr><td>B</td><td>∞</td><td>—</td></tr>
+  <tr><td>C</td><td>∞</td><td>—</td></tr>
+  <tr><td>D</td><td>∞</td><td>—</td></tr>
+  <tr><td>E</td><td>∞</td><td>—</td></tr>
+</table>
+</div>
+
+<h3>Iteración 1: visitar A</h3>
+
+<p>
+  A es el origen y tiene distancia cero. Se analizan sus vecinos B
+  y C. Se calcula una distancia de 4 km hacia B y de 2 km hacia C.
+  Ambos valores son mejores que infinito, por lo que se actualizan.
+</p>
+
+<div class="scroll">
+<table class="cmp">
+  <tr><th>Vértice</th><th>Distancia</th><th>Predecesor</th></tr>
+  <tr><td>A</td><td>0</td><td>—</td></tr>
+  <tr><td>B</td><td>4</td><td>A</td></tr>
+  <tr><td>C</td><td>2</td><td>A</td></tr>
+  <tr><td>D</td><td>∞</td><td>—</td></tr>
+  <tr><td>E</td><td>∞</td><td>—</td></tr>
+</table>
+</div>
+
+<h3>Iteración 2: visitar C</h3>
+
+<p>
+  C tiene la distancia tentativa más pequeña: 2 km. Se analiza
+  la conexión entre C y B, que cuesta 1 km. Llegar a B a través
+  de C cuesta 3 km, lo cual mejora los 4 km que se conocían.
+  Por lo tanto, se actualiza B.
+</p>
+
+<p>
+  También se calcula una distancia de 10 km hacia D y 12 km
+  hacia E.
+</p>
+
+<div class="scroll">
+<table class="cmp">
+  <tr><th>Vértice</th><th>Distancia</th><th>Predecesor</th></tr>
+  <tr><td>A</td><td>0</td><td>—</td></tr>
+  <tr><td>B</td><td>3</td><td>C</td></tr>
+  <tr><td>C</td><td>2</td><td>A</td></tr>
+  <tr><td>D</td><td>10</td><td>C</td></tr>
+  <tr><td>E</td><td>12</td><td>C</td></tr>
+</table>
+</div>
+
+<h3>Iteración 3: visitar B</h3>
+
+<p>
+  B tiene la menor distancia pendiente: 3 km. Se analiza su conexión
+  con D, de 5 km. La distancia acumulada sería 8 km, menor que los
+  10 km anteriores. Por eso D se actualiza.
+</p>
+
+<div class="scroll">
+<table class="cmp">
+  <tr><th>Vértice</th><th>Distancia</th><th>Predecesor</th></tr>
+  <tr><td>A</td><td>0</td><td>—</td></tr>
+  <tr><td>B</td><td>3</td><td>C</td></tr>
+  <tr><td>C</td><td>2</td><td>A</td></tr>
+  <tr><td>D</td><td>8</td><td>B</td></tr>
+  <tr><td>E</td><td>12</td><td>C</td></tr>
+</table>
+</div>
+
+<h3>Iteración 4: visitar D</h3>
+
+<p>
+  D tiene una distancia de 8 km. Su conexión con E tiene un peso
+  de 2 km, por lo que la nueva distancia hacia E sería 10 km.
+  Esta distancia mejora los 12 km anteriores.
+</p>
+
+<div class="scroll">
+<table class="cmp">
+  <tr><th>Vértice</th><th>Distancia</th><th>Predecesor</th></tr>
+  <tr><td>A</td><td>0</td><td>—</td></tr>
+  <tr><td>B</td><td>3</td><td>C</td></tr>
+  <tr><td>C</td><td>2</td><td>A</td></tr>
+  <tr><td>D</td><td>8</td><td>B</td></tr>
+  <tr><td>E</td><td>10</td><td>D</td></tr>
+</table>
+</div>
+
+<h3>Iteración 5: visitar E</h3>
+
+<p>
+  E es seleccionado con una distancia de 10 km. Como es el destino,
+  ya se conoce el camino mínimo entre A y E.
+</p>
+
+<div class="box">
+  <b>Ruta óptima encontrada:</b>
+  A → C → B → D → E
+
+  <b>Distancia total:</b> 10 km
+</div>
+
+<h2>Reconstrucción del camino</h2>
+
+<p>
+  El algoritmo no guarda necesariamente toda la ruta durante cada
+  iteración. En cambio, registra el predecesor de cada vértice.
+  Al finalizar, se comienza desde el destino y se retrocede mediante
+  los predecesores hasta llegar al origen.
+</p>
+
+<div class="box formula">
+  E ← D ← B ← C ← A
+
+  Al invertir la secuencia:
+
+  A → C → B → D → E
+</div>
+
+<h2>¿Por qué Dijkstra encuentra la ruta óptima?</h2>
+
+<p>
+  La propiedad fundamental del algoritmo establece que, cuando se
+  selecciona el vértice no visitado con la menor distancia tentativa,
+  esa distancia es definitiva si todos los pesos son no negativos.
+</p>
+
+<p>
+  Esto ocurre porque cualquier camino alternativo que pase por
+  vértices todavía pendientes tendría que sumar pesos no negativos.
+  Por lo tanto, no podría producir una distancia menor que la
+  distancia que ya se ha fijado para el vértice seleccionado.
+</p>
+
+<p>
+  Esta propiedad permite descartar la necesidad de volver a procesar
+  indefinidamente vértices que ya fueron finalizados.
+</p>
+
+<h2>Condiciones de uso</h2>
+
+<ul>
+  <li>Los pesos de las aristas deben ser no negativos.</li>
+  <li>El grafo puede ser dirigido o no dirigido.</li>
+  <li>Puede trabajar con grafos conectados o desconectados.</li>
+  <li>Si el destino no es alcanzable, no existe una ruta válida.</li>
+  <li>El algoritmo puede encontrar caminos mínimos desde un origen.</li>
+</ul>
+
+<h2>¿Por qué no utilizar pesos negativos?</h2>
+
+<p>
+  Dijkstra utiliza la idea de que una distancia finalizada no será
+  mejorada posteriormente. Los pesos negativos invalidan esa
+  suposición, ya que podrían permitir disminuir el costo de un camino
+  después de haber procesado un vértice.
+</p>
+
+<p>
+  Para grafos con pesos negativos se puede utilizar Bellman-Ford,
+  que permite detectar ciclos negativos y realizar relajaciones
+  repetidas sobre las aristas.
+</p>
+
+<h2>Complejidad computacional</h2>
+
+<p>
+  La complejidad indica cómo crece el tiempo de ejecución y el
+  consumo de memoria a medida que aumenta el tamaño del problema.
+  En Dijkstra, el rendimiento depende de la representación del grafo
+  y de la estructura de datos utilizada para seleccionar el nodo
+  de menor distancia.
+</p>
+
+<div class="scroll">
+<table class="cmp">
+  <tr>
+    <th>Implementación</th>
+    <th>Complejidad temporal</th>
+    <th>Uso</th>
+  </tr>
+  <tr>
+    <td>Matriz + búsqueda lineal</td>
+    <td>O(V²)</td>
+    <td>Grafo pequeño o denso.</td>
+  </tr>
+  <tr>
+    <td>Lista + búsqueda lineal</td>
+    <td>O(V² + E)</td>
+    <td>Implementación sencilla.</td>
+  </tr>
+  <tr>
+    <td>Lista + heap binario</td>
+    <td>O((V + E) log V)</td>
+    <td>Grafo disperso.</td>
+  </tr>
+</table>
+</div>
+
+<p>
+  En RouteFlow se trabaja con una lista de adyacencia, lo cual
+  resulta adecuado para representar conexiones entre ubicaciones
+  de una ciudad.
+</p>
+
+<h2>Algoritmos relacionados</h2>
+
+<div class="scroll">
+<table class="cmp">
+  <tr>
+    <th>Algoritmo</th>
+    <th>Característica</th>
+    <th>Uso</th>
+  </tr>
+  <tr>
+    <td>Dijkstra</td>
+    <td>Pesos no negativos.</td>
+    <td>Camino mínimo desde un origen.</td>
+  </tr>
+  <tr>
+    <td>A*</td>
+    <td>Utiliza una heurística.</td>
+    <td>Buscar hacia un destino específico.</td>
+  </tr>
+  <tr>
+    <td>Bellman-Ford</td>
+    <td>Admite pesos negativos.</td>
+    <td>Grafos con pesos negativos.</td>
+  </tr>
+  <tr>
+    <td>Floyd-Warshall</td>
+    <td>Calcula caminos mínimos entre todos los pares.</td>
+    <td>Distancias de todos contra todos.</td>
+  </tr>
+</table>
+</div>
+
+<h2>Comparación: Dijkstra y A*</h2>
+
+<p>
+  Dijkstra explora los vértices de acuerdo con la distancia
+  acumulada desde el origen. A* agrega una estimación de la
+  distancia que falta hasta el destino, llamada heurística.
+  Esto puede ayudar a dirigir la búsqueda hacia el objetivo.
+</p>
+
+<div class="box formula">
+  Dijkstra:
+
+  f(n) = g(n)
+
+  A*:
+
+  f(n) = g(n) + h(n)
+
+  g(n) = costo acumulado desde el origen
+
+  h(n) = estimación del costo hasta el destino
+</div>
+
+<p>
+  Para una aplicación geográfica, A* puede utilizar la distancia
+  en línea recta entre el nodo actual y el destino como heurística,
+  siempre que se mantengan las condiciones necesarias para que
+  la heurística sea admisible.
+</p>
+
+
 <h3>Idea clave: relajación</h3>
 <p>Si llegar a u cuesta dist[u] y la calle u–v mide w, entonces llegar a v pasando por u cuesta dist[u] + w. Si ese valor es menor que el que ya se tenía para v, se actualiza.</p>
 <div class="box formula">Dijkstra(grafo, origen):
@@ -113,6 +1268,67 @@
 <h1>Demo: Dijkstra paso a paso</h1>
 <p>Grafo pequeño de ejemplo con origen A. Observa cómo la tabla de distancias va mejorando.</p>
 <svg id="tg" viewBox="0 0 390 230" role="img" aria-label="Grafo de ejemplo de cinco nodos"></svg>
+
+<h2>¿Qué observar durante la demostración?</h2>
+
+<p>
+  La demostración permite observar el comportamiento del algoritmo
+  de Dijkstra a través de un grafo pequeño. Cada vez que se avanza,
+  se selecciona el nodo con menor distancia tentativa y se analizan
+  sus conexiones.
+</p>
+
+<div class="scroll">
+<table class="cmp">
+  <tr>
+    <th>Elemento visual</th>
+    <th>Significado</th>
+  </tr>
+  <tr>
+    <td>Nodo de origen</td>
+    <td>Ubicación desde donde inicia el cálculo.</td>
+  </tr>
+  <tr>
+    <td>Nodo seleccionado</td>
+    <td>Vértice con menor distancia pendiente.</td>
+  </tr>
+  <tr>
+    <td>Nodos explorados</td>
+    <td>Vértices cuyas conexiones ya fueron analizadas.</td>
+  </tr>
+  <tr>
+    <td>Aristas resaltadas</td>
+    <td>Conexiones que se están evaluando.</td>
+  </tr>
+  <tr>
+    <td>Distancias</td>
+    <td>Costos acumulados desde el origen.</td>
+  </tr>
+  <tr>
+    <td>Predecesores</td>
+    <td>Vértices que permiten reconstruir la ruta.</td>
+  </tr>
+</table>
+</div>
+
+<h2>¿Qué demuestra esta simulación?</h2>
+
+<ul>
+  <li>La inicialización de las distancias.</li>
+  <li>La selección del menor nodo pendiente.</li>
+  <li>La exploración de los vecinos.</li>
+  <li>La actualización de distancias mediante relajación.</li>
+  <li>La selección progresiva de nodos.</li>
+  <li>La obtención de una ruta de costo mínimo.</li>
+</ul>
+
+<div class="box">
+  <b>Objetivo educativo:</b>
+  El usuario no solamente observa la ruta final, sino que comprende
+  cómo se obtiene, qué decisiones toma el algoritmo y por qué
+  algunos caminos son descartados.
+</div>
+
 <div class="scroll"><table id="tt"></table></div>
 <p id="tdesc"></p>
 <div class="bar"><button id="tNext" class="pri">Siguiente paso</button><button id="tAuto">Reproducir</button><button id="tReset">Reiniciar</button></div>
@@ -157,17 +1373,98 @@
 <p class="note">Las calles se dibujan como líneas rectas entre puntos y su peso es la distancia recta por 1,35 para aproximar el recorrido real.</p>
 </section>
 
+
 <section id="conclusiones">
-<h1>Conclusiones</h1>
-<ul><li>Modelar La Paz como un grafo permite resolver con un algoritmo clásico un problema real de reparto.</li>
-<li>Dijkstra siempre encuentra la ruta más corta porque todas las distancias son positivas, y trabaja bien en grafos dispersos como un mapa de calles.</li>
-<li>La animación y las tablas ayudan a ver por qué el algoritmo toma cada decisión.</li>
-<li>Elegir la estructura de datos correcta (lista de adyacencia, cola de prioridad) es tan importante como el algoritmo.</li></ul>
-<h2>Limitaciones</h2>
-<p>Las calles son líneas rectas con distancia aproximada, no se consideran pendientes, calles de un solo sentido ni tráfico en tiempo real. Las coordenadas de los lugares son aproximadas.</p>
-<h2>Trabajo futuro</h2>
-<ul><li>Usar el trazado real de las calles de OpenStreetMap.</li><li>Usar A* para acelerar la búsqueda.</li><li>Resolver varias entregas seguidas (problema del viajante).</li><li>Incluir el desnivel y el tráfico como parte del peso.</li></ul>
+  <h1>Conclusiones</h1>
+
+  <p>
+    El desarrollo de RouteFlow permite demostrar la aplicación
+    práctica de la teoría de grafos y los algoritmos de caminos
+    mínimos en un problema relacionado con la logística urbana.
+  </p>
+
+  <ul>
+    <li>
+      La teoría de grafos permite representar de forma estructurada
+      una red de ubicaciones y conexiones, facilitando el análisis
+      de diferentes alternativas de recorrido.
+    </li>
+
+    <li>
+      El algoritmo de Dijkstra permite encontrar el camino de menor
+      distancia entre un origen y un destino cuando los pesos de
+      las conexiones son no negativos.
+    </li>
+
+    <li>
+      La utilización de listas de adyacencia permite almacenar
+      eficientemente las conexiones existentes y resulta adecuada
+      para redes de calles con pocas conexiones por nodo.
+    </li>
+
+    <li>
+      La representación visual de las iteraciones permite comprender
+      conceptos como distancia tentativa, relajación, selección
+      del nodo mínimo y reconstrucción del camino.
+    </li>
+
+    <li>
+      La integración de algoritmos con mapas digitales demuestra
+      cómo los conceptos teóricos de la informática pueden convertirse
+      en herramientas interactivas para resolver problemas reales.
+    </li>
+
+    <li>
+      La aplicación permite experimentar con diferentes puntos de
+      origen y destino, facilitando el aprendizaje mediante
+      simulaciones y visualización de resultados.
+    </li>
+  </ul>
+
+  <h2>Limitaciones</h2>
+
+  <p>
+    El sistema utiliza distancias aproximadas entre puntos y no
+    incorpora el trazado real de todas las calles. Tampoco considera
+    restricciones de circulación, tráfico en tiempo real, condiciones
+    de la vía, desniveles, accidentes, horarios de entrega ni
+    capacidades del vehículo.
+  </p>
+
+  <p>
+    Por ello, las rutas generadas deben interpretarse como resultados
+    de un modelo académico de optimización de distancias y no como
+    instrucciones de navegación profesional.
+  </p>
+
+  <h2>Trabajo futuro</h2>
+
+  <ul>
+    <li>Integrar calles y caminos reales de OpenStreetMap.</li>
+    <li>Utilizar servicios de rutas para obtener recorridos reales.</li>
+    <li>Incorporar calles de un solo sentido.</li>
+    <li>Utilizar el algoritmo A* para búsqueda dirigida.</li>
+    <li>Considerar tráfico y tiempo como pesos de las conexiones.</li>
+    <li>Incorporar información de elevación y pendientes.</li>
+    <li>Permitir múltiples entregas en una sola jornada.</li>
+    <li>Explorar algoritmos para el problema del viajante de comercio.</li>
+    <li>Implementar estrategias de optimización para flotas de reparto.</li>
+  </ul>
+
+  <h2>Conclusión final</h2>
+
+  <p>
+    RouteFlow demuestra que un algoritmo clásico como Dijkstra
+    puede utilizarse para resolver problemas de optimización
+    relacionados con la movilidad. A través de la teoría,
+    implementación y visualización, se evidencia la importancia
+    de seleccionar algoritmos y estructuras de datos adecuadas
+    para obtener soluciones eficientes y comprensibles.
+  </p>
 </section>
+
+
+
 </main>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="js/data.js"></script>
